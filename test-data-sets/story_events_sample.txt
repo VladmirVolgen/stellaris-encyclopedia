@@ -1,0 +1,153 @@
+###############################
+# Narrative Progression Events
+# by Maximilian Olbers
+###############################
+
+namespace = story
+
+### 1 - Microbial, simple plant life
+country_event = {
+	id = story.1
+	title = story.1.name
+	desc = {
+		trigger = {
+			switch = {
+				trigger = has_ethic
+				ethic_fanatic_spiritualist = { text = story.1.desc.spiri }
+				ethic_fanatic_xenophobe = { text = story.1.desc.phobe }
+				ethic_fanatic_xenophile = { text = story.1.desc.phile }
+				ethic_spiritualist = { text = story.1.desc.spiri }
+				ethic_xenophobe = { text = story.1.desc.phobe }
+				ethic_xenophile = { text = story.1.desc.phile }
+				ethic_gestalt_consciousness = {
+					if = {
+						limit = { has_civic = civic_machine_terminator }
+						text = story.1.desc.term
+					}
+					else = { text = story.1.desc.gesta }
+				}
+				default = { text = story.1.desc }
+			}
+		}
+	}
+
+	picture = GFX_evt_news_room
+	show_sound = event_scanner
+
+	is_triggered_only = yes
+
+	trigger = {
+		is_country_type = default
+		NOR = {
+			has_country_flag = Story1
+			has_country_flag = Story2
+			has_country_flag = Story3
+			has_country_flag = Story4
+			has_country_flag = Story5
+			has_country_flag = Story6
+			has_country_flag = Story7
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = { NOT = { has_country_flag = first_alien_life } }
+			set_country_flag = first_alien_life
+		}
+		set_country_flag = StoryFirst
+		set_country_flag = Story1
+	}
+
+	option = {
+		trigger = { NOR = { has_ethic = ethic_fanatic_xenophobe has_ethic = ethic_xenophobe } }
+		name = INTRIGUING
+	}
+	option = {
+		trigger = { OR = { has_ethic = ethic_fanatic_xenophobe has_ethic = ethic_xenophobe } }
+		name = DISCONCERTING
+	}
+}
+
+### 2 - Spacers
+country_event = {
+	id = story.2
+	title = story.2.name
+	# First
+	desc = {
+		trigger = {
+			NOR = {
+				has_country_flag = StoryFirst
+				has_ethic = ethic_gestalt_consciousness
+			}
+		}
+		text = story.2.desc
+	}
+	# Gestalt Consciousness
+	desc = {
+		trigger = { has_ethic = ethic_gestalt_consciousness }
+		text = story.2.desc.gesta
+	}	
+	# Xenophile regardless of status
+	desc = {
+		trigger = {
+			OR = {
+				has_ethic = ethic_fanatic_xenophile
+				has_ethic = ethic_xenophile
+			}
+		}
+		text = story.2.desc.phile
+	}
+	# Followup
+	desc = {
+		trigger = {
+			has_country_flag = Story1
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		text = story.2.desc.followup
+	}
+	# Fallback
+	desc = {
+		trigger = {
+			has_country_flag = StoryFirst
+			NOR = {
+				has_ethic = ethic_fanatic_xenophile
+				has_ethic = ethic_xenophile
+				has_ethic = ethic_gestalt_consciousness
+			}
+		}
+		text = story.2.desc
+	}
+	picture = GFX_evt_news_room
+	show_sound = event_scanner
+#	location = from
+
+	is_triggered_only = yes
+
+	trigger = {
+		NOR = {
+			has_country_flag = Story2
+			has_country_flag = Story3
+			has_country_flag = Story4
+			has_country_flag = Story5
+			has_country_flag = Story6
+			has_country_flag = Story7
+			#has_country_flag = Story8
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = { NOT = { has_country_flag = StoryFirst } }
+			set_country_flag = StoryFirst
+		}
+		if = {
+			limit = { NOT = { has_country_flag = first_alien_life } }
+			set_country_flag = first_alien_life
+		}
+		set_country_flag = Story2
+	}
+
+	option = {
+		name = FASCINATING
+	}
+}
