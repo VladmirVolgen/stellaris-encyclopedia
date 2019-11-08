@@ -1,3 +1,4 @@
+
 /**
  * This function finds the ending bracket given a string where the begining bracket has been found
  * @param slicedEventString
