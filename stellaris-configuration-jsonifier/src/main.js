@@ -1,11 +1,17 @@
 const processFiles = require('./models/file_reader');
+const processEventFile = require('./models/event_parser');
 
 
 const eventsPath = '../../test-data-sets/events/';
 const localisationPath = '../../test-data-sets/localisation/';
 
-console.log(processFiles(eventsPath));
-console.log(processFiles(localisationPath));
+const eventFiles = processFiles(eventsPath);
+
+
+
+console.log(processEventFile(eventFiles[0], 0, []));
+
+
 
 
 
