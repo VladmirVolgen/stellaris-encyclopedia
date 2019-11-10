@@ -9,7 +9,7 @@ const eventFiles = processFiles(eventsPath);
 
 
 
-console.log(processEventFile(eventFiles[1], []));
+console.log(processEventFile(eventFiles[1]));
 
 
 

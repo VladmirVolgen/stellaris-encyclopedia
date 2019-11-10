@@ -1,25 +1,29 @@
 
-const processEventFile = (fileRemainingContents, eventsList) => {
+const processEventFile = (fileRemainingContents) => {
 
-    // Search for the beginning of the event. Will return index of the trimmed fileContents
-    let startIndex = determineEventStartCharLocation(fileRemainingContents);
-    // determine if there are results
-    if (startIndex === -1) return eventsList;
+    let startIndex = 0;
+    let eventsList = [];
 
-    // Make file smaller
-    fileRemainingContents = fileRemainingContents.slice(startIndex);
-    // Get ending char
-    const endingChar = determineEventEndingCharLocation(fileRemainingContents);
+    while(startIndex !== -1) {
+        startIndex = determineEventStartCharLocation(fileRemainingContents);
+        // determine if there are results
+        if (startIndex === -1) break;
 
-    // push event to list
-    const eventContents = fileRemainingContents.slice(0, endingChar);
-    eventsList.push(eventContents);
-    console.log(`Events processed: ${eventsList.length}`)
+        // Make file smaller
+        fileRemainingContents = fileRemainingContents.slice(startIndex);
+        // Get ending char
+        const endingChar = determineEventEndingCharLocation(fileRemainingContents);
 
-    // Remove event from the remaining file to process
-    fileRemainingContents = fileRemainingContents.slice(endingChar);
+        // push event to list
+        const eventContents = fileRemainingContents.slice(0, endingChar);
+        eventsList.push(eventContents);
+        console.log(`Events processed: ${eventsList.length}`);
 
-    return processEventFile(fileRemainingContents, eventsList);
+        // Remove event from the remaining file to process
+        fileRemainingContents = fileRemainingContents.slice(endingChar);
+    }
+
+    return eventsList;
 
 
 };
