@@ -1,24 +1,25 @@
 
-const processEventFile = (fileContents, processIndex, eventsList) => {
+const processEventFile = (fileRemainingContents, eventsList) => {
 
     // Search for the beginning of the event. Will return index of the trimmed fileContents
-    let startIndex = determineEventStartCharLocation(fileContents, processIndex);
+    let startIndex = determineEventStartCharLocation(fileRemainingContents);
     // determine if there are results
     if (startIndex === -1) return eventsList;
 
-    processIndex = startIndex + processIndex;
-
+    // Make file smaller
+    fileRemainingContents = fileRemainingContents.slice(startIndex);
     // Get ending char
-    let slicedEventString = fileContents.slice(processIndex);
-    const endingChar = determineEventEndingCharLocation(slicedEventString, processIndex);
+    const endingChar = determineEventEndingCharLocation(fileRemainingContents);
 
     // push event to list
-    eventsList.push(fileContents.slice(processIndex, endingChar));
+    const eventContents = fileRemainingContents.slice(0, endingChar);
+    eventsList.push(eventContents);
+    console.log(`Events processed: ${eventsList.length}`)
 
-    // define starting index for next event search
-    processIndex = endingChar + 1;
+    // Remove event from the remaining file to process
+    fileRemainingContents = fileRemainingContents.slice(endingChar);
 
-    return processEventFile(fileContents, processIndex, eventsList);
+    return processEventFile(fileRemainingContents, eventsList);
 
 
 };
@@ -27,17 +28,16 @@ const processEvent = (eventString) => {
     //TODO: process a single event and returns an object with all the data.
 };
 
-const determineEventStartCharLocation = (eventString, processIndex) => {
-    return eventString.slice(processIndex).search('{');
+const determineEventStartCharLocation = (eventRemainingString) => {
+    return eventRemainingString.search('{');
 };
 
 /**
  * This function finds the ending bracket given a string where the beginning bracket has been found
  * @param slicedEventString
- * @param eventStartingIndex
  * @returns {number}, ending bracket index
  */
-const determineEventEndingCharLocation = (slicedEventString, eventStartingIndex) => {
+const determineEventEndingCharLocation = (slicedEventString) => {
     let bracketsCounter = 1;
     let endingChar = -1;
 
@@ -55,7 +55,7 @@ const determineEventEndingCharLocation = (slicedEventString, eventStartingIndex)
 
         if (bracketsCounter === 0) {
             // returns ending char
-            endingChar = index + eventStartingIndex;
+            endingChar = index;
             break;
         }
 
