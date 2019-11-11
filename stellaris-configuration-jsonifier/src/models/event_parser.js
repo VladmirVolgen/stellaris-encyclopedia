@@ -34,8 +34,55 @@ const processEventFile = (eventFileContents) => {
 
 };
 
-const processEvent = (eventString) => {
-    //TODO: process a single event and returns an object with all the data.
+/**
+ * This method process an event and writes it into a file
+ * @param eventString
+ * @param pathToJson The path to the json file that needs to be written into.
+ */
+const processEvent = (eventString, pathToJson) => {
+    // TODO: Need a class to hold all the event keys and do the logic
+    // TODO: All the gets can be simplified using a helper function.
+
+    // Get id key
+    const idKey = 'id =';
+    const idStartIndex = eventString.indexOf(idKey) + idKey.length;
+    const idEndIndex = eventString.indexOf(`\n`, idStartIndex);
+    const id = eventString.slice(idStartIndex, idEndIndex).trim();
+
+    console.log(`This is the id for the event: ${id}`);
+
+    // Get title key
+
+    const titleKey = 'title =';
+    const titleStartIndex = eventString.indexOf(titleKey) + titleKey.length;
+    const titleEndIndex = eventString.indexOf(`\n`, titleStartIndex);
+    const title = eventString.slice(titleStartIndex, titleEndIndex).trim();
+    console.log(`This is the title for the event: ${title}`);
+
+    //GET desc
+    // if desc is an object we might want to do some more processing.
+    const descObjectKey = 'desc = {'
+    const descStringKey = 'desc ='
+
+    let desc = null;
+
+    if (eventString.indexOf(descObjectKey) !== -1) {
+
+        const descStartIndex = eventString.indexOf(descObjectKey) + descObjectKey.length;
+        const descEndIndex = determineEventEndingCharLocation(eventString.slice(descStartIndex)) + descStartIndex;
+        desc = eventString.slice(descStartIndex, descEndIndex);
+
+    } else {
+
+        const descStartIndex = eventString.indexOf(descStringKey) + descStringKey.length;
+        const descEndIndex = eventString.indexOf(`\n`, descStartIndex);
+        desc = eventString.slice(descStartIndex, descEndIndex);
+
+    }
+
+    console.log(`This is the description for the event: ${desc}`);
+
+    //TODO: writes event into a json file
 };
 
 const determineEventStartCharLocation = (eventRemainingString) => {
@@ -77,5 +124,5 @@ const determineEventEndingCharLocation = (slicedEventString) => {
 
 };
 
-module.exports = processEventFile;
+module.exports = { processEventFile, processEvent };
 

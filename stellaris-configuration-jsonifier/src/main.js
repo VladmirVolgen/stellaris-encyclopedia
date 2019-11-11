@@ -1,5 +1,5 @@
 const processFiles = require('./models/file_reader');
-const processEventFile = require('./models/event_parser');
+const { processEventFile, processEvent } = require('./models/event_parser');
 
 
 const eventsPath = '../../test-data-sets/events/';
@@ -9,7 +9,15 @@ const eventFiles = processFiles(eventsPath);
 
 
 
-console.log(processEventFile(eventFiles[1]));
+
+
+const eventsFromFile = processEventFile(eventFiles[1]);
+
+processEvent(eventsFromFile[0]);
+processEvent(eventsFromFile[1]);
+
+
+
 
 
 
