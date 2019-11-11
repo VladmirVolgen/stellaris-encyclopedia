@@ -1,26 +1,32 @@
-
-const processEventFile = (fileRemainingContents) => {
+/**
+ * This method takes an event file and classifies all the events inside the file.
+ * @param eventFileContents String
+ * @returns {[]} Array of events
+ */
+const processEventFile = (eventFileContents) => {
 
     let startIndex = 0;
     let eventsList = [];
 
     while(startIndex !== -1) {
-        startIndex = determineEventStartCharLocation(fileRemainingContents);
+        startIndex = determineEventStartCharLocation(eventFileContents);
         // determine if there are results
         if (startIndex === -1) break;
 
         // Make file smaller
-        fileRemainingContents = fileRemainingContents.slice(startIndex);
+        eventFileContents = eventFileContents.slice(startIndex);
         // Get ending char
-        const endingChar = determineEventEndingCharLocation(fileRemainingContents);
+        const endingChar = determineEventEndingCharLocation(eventFileContents);
+
+        //TODO: process file here
 
         // push event to list
-        const eventContents = fileRemainingContents.slice(0, endingChar);
+        const eventContents = eventFileContents.slice(0, endingChar);
         eventsList.push(eventContents);
         console.log(`Events processed: ${eventsList.length}`);
 
         // Remove event from the remaining file to process
-        fileRemainingContents = fileRemainingContents.slice(endingChar);
+        eventFileContents = eventFileContents.slice(endingChar);
     }
 
     return eventsList;
