@@ -1,9 +1,12 @@
+const { determineEventStartCharLocation, determineEventEndingCharLocation } = require('../utilities/event_brackets_finder');
+const {Event} = require('./event');
+
 /**
  * This method takes an event file and classifies all the events inside the file.
  * @param eventFileContents String
  * @returns {[]} Array of events
  */
-const processEventFile = (eventFileContents) => {
+const processEventFile = function(eventFileContents) {
 
     let startIndex = 0;
     let eventsList = [];
@@ -39,89 +42,15 @@ const processEventFile = (eventFileContents) => {
  * @param eventString
  * @param pathToJson The path to the json file that needs to be written into.
  */
-const processEvent = (eventString, pathToJson) => {
-    // TODO: Need a class to hold all the event keys and do the logic
-    // TODO: All the gets can be simplified using a helper function.
+const processEvent = function(eventString, pathToJson) {
 
-    // Get id key
-    const idKey = 'id =';
-    const idStartIndex = eventString.indexOf(idKey) + idKey.length;
-    const idEndIndex = eventString.indexOf(`\n`, idStartIndex);
-    const id = eventString.slice(idStartIndex, idEndIndex).trim();
+    const event = new Event(eventString);
 
-    console.log(`This is the id for the event: ${id}`);
-
-    // Get title key
-
-    const titleKey = 'title =';
-    const titleStartIndex = eventString.indexOf(titleKey) + titleKey.length;
-    const titleEndIndex = eventString.indexOf(`\n`, titleStartIndex);
-    const title = eventString.slice(titleStartIndex, titleEndIndex).trim();
-    console.log(`This is the title for the event: ${title}`);
-
-    //GET desc
-    // if desc is an object we might want to do some more processing.
-    const descObjectKey = 'desc = {'
-    const descStringKey = 'desc ='
-
-    let desc = null;
-
-    if (eventString.indexOf(descObjectKey) !== -1) {
-
-        const descStartIndex = eventString.indexOf(descObjectKey) + descObjectKey.length;
-        const descEndIndex = determineEventEndingCharLocation(eventString.slice(descStartIndex)) + descStartIndex;
-        desc = eventString.slice(descStartIndex, descEndIndex);
-
-    } else {
-
-        const descStartIndex = eventString.indexOf(descStringKey) + descStringKey.length;
-        const descEndIndex = eventString.indexOf(`\n`, descStartIndex);
-        desc = eventString.slice(descStartIndex, descEndIndex);
-
-    }
-
-    console.log(`This is the description for the event: ${desc}`);
+    console.log(`This is the title for the event: ${event.title}`);
+    console.log(`This is the picture for the event: ${event.picture}`);
+    console.log(`This are the options for the event: -length: ${event.options.length} -arrayContent: ${event.options}`);
 
     //TODO: writes event into a json file
-};
-
-const determineEventStartCharLocation = (eventRemainingString) => {
-    return eventRemainingString.search('{');
-};
-
-/**
- * This function finds the ending bracket given a string where the beginning bracket has been found
- * @param slicedEventString
- * @returns {number}, ending bracket index
- */
-const determineEventEndingCharLocation = (slicedEventString) => {
-    let bracketsCounter = 1;
-    let endingChar = -1;
-
-    let index = 1;
-    while(bracketsCounter !== 0) {
-
-        let slicedEventArray = slicedEventString.split('');
-        let character = slicedEventArray[index];
-
-        if (character === "{") {
-            bracketsCounter++;
-        } else if (character === "}"){
-            bracketsCounter--;
-        }
-
-        if (bracketsCounter === 0) {
-            // returns ending char
-            endingChar = index;
-            break;
-        }
-
-        index++;
-    }
-
-
-    return endingChar;
-
 };
 
 module.exports = { processEventFile, processEvent };
