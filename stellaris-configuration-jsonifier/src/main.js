@@ -11,10 +11,10 @@ const eventFiles = processFiles(eventsPath);
 
 
 
-const eventsFromFile = processEventFile(eventFiles[1]);
+const eventsFromFile = processEventFile(eventFiles[0]);
 
-processEvent(eventsFromFile[0]);
-processEvent(eventsFromFile[1]);
+
+
 
 
 

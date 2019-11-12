@@ -21,11 +21,16 @@ const processEventFile = function(eventFileContents) {
         // Get ending char
         const endingChar = determineEventEndingCharLocation(eventFileContents);
 
-        //TODO: process file here
+
 
         // push event to list
         const eventContents = eventFileContents.slice(0, endingChar);
-        eventsList.push(eventContents);
+
+        // process event and transform it into an object;
+        const pathToJson = 'placeHolder/willBeAPathFromProperties.json'
+        const event = processEvent(eventContents, pathToJson);
+
+        eventsList.push(event);
         console.log(`Events processed: ${eventsList.length}`);
 
         // Remove event from the remaining file to process
