@@ -1,4 +1,4 @@
-const { determineEventStartCharLocation, determineEventEndingCharLocation } = require('../utilities/event_brackets_finder');
+const { determineEventStartCharLocation, determineEventEndingCharLocation } = require('../utilities/string_value_finder');
 const {Event} = require('./event');
 
 /**
@@ -27,7 +27,7 @@ const processEventFile = function(eventFileContents) {
         const eventContents = eventFileContents.slice(0, endingChar);
 
         // process event and transform it into an object;
-        const pathToJson = 'placeHolder/willBeAPathFromProperties.json'
+        const pathToJson = 'placeHolder/willBeAPathFromProperties.json';
         const event = processEvent(eventContents, pathToJson);
 
         eventsList.push(event);

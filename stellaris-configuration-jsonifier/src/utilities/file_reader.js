@@ -6,7 +6,7 @@ const fs = require('fs');
  * @param dirPath
  * @returns filesContent array
  */
-processFiles = (dirPath) => {
+processFiles = function(dirPath) {
 
     const fileNames = fs.readdirSync(dirPath);
     let filesContent = [];
@@ -20,8 +20,8 @@ processFiles = (dirPath) => {
 
 };
 
-const readFile = (filePath) => {
+const readFile = function(filePath) {
     return fs.readFileSync(filePath).toString();
 };
 
-module.exports = processFiles;
+module.exports = {processFiles};

@@ -1,8 +1,12 @@
-const {determineEventEndingCharLocation} = require('../utilities/event_brackets_finder');
+const {findLocalisationEntry} = require("../utilities/localisation_entry_finder");
+const {determineEventEndingCharLocation, getKeyValueForString} = require('../utilities/string_value_finder');
 
-
+/**
+ * Event constructor. Gets all the properties from an event.
+ * @param eventString
+ * @constructor
+ */
 const Event = function (eventString) {
-
     this.id = this.getId(eventString);
     this.title = this.getTitle(eventString);
     this.description = this.getDescription(eventString);
@@ -14,7 +18,7 @@ const Event = function (eventString) {
 
 Event.prototype.getId = function (eventString) {
     const idKey = 'id =';
-    return this.getKeyValueForString(eventString, idKey);
+    return getKeyValueForString(eventString, idKey);
 
 };
 
@@ -22,7 +26,8 @@ Event.prototype.getId = function (eventString) {
 Event.prototype.getTitle = function (eventString) {
 
     const titleKey = 'title =';
-    return this.getKeyValueForString(eventString, titleKey);
+    const rawValue = getKeyValueForString(eventString, titleKey);
+    return findLocalisationEntry(rawValue, '../../test-data-sets/localisation/')
 
 };
 
@@ -42,7 +47,7 @@ Event.prototype.getDescription = function (eventString) {
 
     } else {
 
-        desc = this.getKeyValueForString(eventString, descStringKey);
+        desc = getKeyValueForString(eventString, descStringKey);
 
     }
 
@@ -55,7 +60,7 @@ Event.prototype.getPicture = function (eventString) {
 
     const pictureKey = 'picture =';
 
-    return this.getKeyValueForString(eventString, pictureKey);
+    return getKeyValueForString(eventString, pictureKey);
 
 };
 
@@ -72,24 +77,13 @@ Event.prototype.getOptions = function (eventString) {
         const optionStartIndex = eventString.indexOf(optionKey) + optionKey.length;
         const optionEndIndex = determineEventEndingCharLocation(eventString.slice(optionStartIndex)) + optionStartIndex;
 
-        options.push(eventString.slice(optionStartIndex, optionEndIndex))
+        options.push(eventString.slice(optionStartIndex, optionEndIndex));
 
         eventString = eventString.slice(optionEndIndex);
 
     }
 
     return options;
-
-};
-
-Event.prototype.getKeyValueForString = function (eventString, key) {
-
-    const startIndex = eventString.indexOf(key) + key.length;
-    const endIndex = eventString.indexOf(`\n`, startIndex);
-    const value = eventString.slice(startIndex, endIndex).trim();
-
-
-    return value;
 
 };
 
