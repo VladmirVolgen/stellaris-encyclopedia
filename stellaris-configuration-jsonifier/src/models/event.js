@@ -27,7 +27,9 @@ Event.prototype.getTitle = function (eventString) {
 
     const titleKey = 'title =';
     const rawValue = getKeyValueForString(eventString, titleKey);
-    return findLocalisationEntry(rawValue, '../../test-data-sets/localisation/')
+    const localisationValue = findLocalisationEntry(rawValue);
+    if (localisationValue !== null) return localisationValue;
+    return rawValue;
 
 };
 

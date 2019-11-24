@@ -1,0 +1,4 @@
+{
+  "pathToLocalisation": "../../test-data-sets/localisation/",
+  "processedJsonFolder": "../../test-data-sets/json-output/events-output.json"
+}

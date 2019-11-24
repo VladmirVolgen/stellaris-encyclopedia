@@ -1,7 +1,17 @@
 const { processFiles } = require('./file_reader');
 const { getKeyValueForString } = require('./string_value_finder');
+const fs = require('fs');
 
-const findLocalisationEntry = function(keyString, localisationPath) {
+/**
+ * Finds a localisation entry given the key for the value
+ * @param keyString
+ * @returns entryValue String returns the value for the entry.
+ */
+const findLocalisationEntry = function(keyString) {
+    // Read configuration
+    const config = fs.readFileSync('../app-config.json');
+    const localisationPath = JSON.parse(config).pathToLocalisation;
+
 
     let entryValue = null;
 
@@ -17,7 +27,7 @@ const findLocalisationEntry = function(keyString, localisationPath) {
             let rawValue = getKeyValueForString(file, keyString);
 
             // process and clean value
-            return rawValue.slice(rawValue.indexOf(`"`) + 1, rawValue.lastIndexOf(`"`) - 1);
+            return rawValue.slice(rawValue.indexOf(`"`) + 1, rawValue.lastIndexOf(`"`) );
 
         }
     }
