@@ -11,8 +11,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      eventsData: null,
-      selectedEvents: null
+      eventsData: [],
+      selectedEvents: []
     }
   }
 
@@ -20,9 +20,8 @@ class App extends React.Component {
     const jsonEventList = JSON.parse(eventList);
     this.setState({eventsData: jsonEventList})
     // TODO: It will fetch from REST API
-    // fetch('../../test-data-sets/json-output/events-output.json')
-    //   .then(response => response.json())
-    //   .then(data => this.setState({eventsData: JSON.parse(data)}))
+    //temporary for testing
+    this.setState({selectedEvents: jsonEventList})
   }
 
   render() {
@@ -30,7 +29,7 @@ class App extends React.Component {
       <div className="App">
         <Title />
         <SearchFilter />
-        <EventList />
+        <EventList eventsData={this.state.selectedEvents}/>
       </div>
     );
   }
