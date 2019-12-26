@@ -1,15 +1,15 @@
 const {processFiles} = require('./utilities/file_reader');
 const { processEventFile } = require('./processors/event_parser');
 const fs = require('fs');
+const readAppConfiguration = require('./configuration/read_configuration')
 
 
-const eventsPath = '../../test-data-sets/events/';
+const eventsPath = '../test-data-sets/events/';
 
 
 
 //Read config
-const fileContents = fs.readFileSync('../app-config.json');
-const config = JSON.parse(fileContents);
+const config = readAppConfiguration();
 const pathToJsonOutput = config.processedJsonFolder;
 
 const eventFiles = processFiles(eventsPath);

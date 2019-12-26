@@ -1,6 +1,7 @@
 const { determineEventStartCharLocation, determineEventEndingCharLocation } = require('../utilities/string_value_finder');
 const {Event} = require('../models/event');
 const fs = require('fs');
+const readAppConfiguration = require('../configuration/read_configuration')
 
 /**
  * This method takes an event file and classifies all the events inside the file.
@@ -51,8 +52,8 @@ const processEventFile = function(eventFileContents, fileIndex) {
 const processEvent = function(eventString, fileIndex, eventsInFileCount) {
 
     // Read configuration
-    const config = fs.readFileSync('../app-config.json');
-    const pathToJsonOutput = JSON.parse(config).processedJsonFolder;
+    const config = readAppConfiguration();
+    const pathToJsonOutput = config.processedJsonFolder;
 
     const event = new Event(eventString);
 
