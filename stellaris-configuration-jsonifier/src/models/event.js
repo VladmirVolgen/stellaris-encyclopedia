@@ -5,6 +5,7 @@ const {determineEventEndingCharLocation, getKeyValueForString} = require('../uti
  * Event constructor. Gets all the properties from an event.
  * @param eventString
  * @constructor
+ * // TODO: change the keys for an array of value pairs so number of keys can be handled from the config
  */
 const Event = function (eventString) {
     this.id = this.getId(eventString);
