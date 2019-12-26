@@ -8,7 +8,7 @@
       "startKey": "id =",
       "endValue": "\\n",
       "replacementForStartKey": "\"id\": \"",
-      "replacementForEndValue": "\" \\n"
+      "valueType": "string"
     }
   ]
 }

@@ -26,3 +26,4 @@ All event keys won't render if they don't appear
 ## Ideas
 * Translate the list of keys into the desired values, maybe some kind of config: stringToBeSearched;transformationToBePerformed
 * Will need to add namespace, that will be category
+* The configuration file will have all the event keys with the type, so it can identify what to do depending on the object.
