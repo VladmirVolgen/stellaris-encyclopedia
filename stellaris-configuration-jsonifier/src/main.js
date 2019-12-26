@@ -8,8 +8,9 @@ const eventsPath = '../../test-data-sets/events/';
 
 
 //Read config
-const config = fs.readFileSync('../app-config.json');
-const pathToJsonOutput = JSON.parse(config).processedJsonFolder;
+const fileContents = fs.readFileSync('../app-config.json');
+const config = JSON.parse(fileContents);
+const pathToJsonOutput = config.processedJsonFolder;
 
 const eventFiles = processFiles(eventsPath);
 

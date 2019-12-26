@@ -6,13 +6,18 @@ const {determineEventEndingCharLocation, getKeyValueForString} = require('../uti
  * @param eventString
  * @constructor
  * // TODO: change the keys for an array of value pairs so number of keys can be handled from the config
+ * // for object types that would mean would do the same logic performed in description.
  */
-const Event = function (eventString) {
+const Event = function (eventString, configuration) {
+    // TODO refactor constructor to instanciate configuration object
+    // and event string that returns an object (will call a method that
+    // will process all keys)
     this.id = this.getId(eventString);
     this.title = this.getTitle(eventString);
     this.description = this.getDescription(eventString);
     this.picture = this.getPicture(eventString);
     this.options = this.getOptions(eventString);
+
 
 };
 
