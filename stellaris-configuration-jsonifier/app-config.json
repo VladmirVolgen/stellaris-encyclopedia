@@ -1,4 +1,14 @@
 {
   "pathToLocalisation": "../../test-data-sets/localisation/",
-  "processedJsonFolder": "../../test-data-sets/json-output/events-output.json"
+  "processedJsonFolder": "../../test-data-sets/json-output/events-output.json",
+  "eventTypes": ["country_event", "ship_event", "fleet_event", "planet_event"
+    , "pop_faction_event", "pop_event"],
+  "eventKeys": [
+    {
+      "startKey": "id =",
+      "endValue": "\\n",
+      "replacementForStartKey": "\"id\": \"",
+      "replacementForEndValue": "\" \\n"
+    }
+  ]
 }
