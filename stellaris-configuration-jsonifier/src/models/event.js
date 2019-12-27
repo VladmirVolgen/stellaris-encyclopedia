@@ -99,15 +99,22 @@ const createJSONEvent = function (eventString, configuration) {
     const eventKeys = configuration.eventKeys
     let event = {}
 
-    array.forEach(eventKey => {
+    eventKeys.forEach(eventKey => {
 
         if (eventKey.valueType === "object") {
 
-        } else if (eventKey === "string"){
-            event[eventKey.name] = getKeyValueForString(eventString, eventKey.startKey, eventKey.endKey);
+            const eventKeyStartIndex = eventString.indexOf(eventKey.startKey) 
+                + eventKey.startKey.length
+            const eventKeyEndIndex = determineEventEndingCharLocation(eventString.slice(), eventKeyStartIndex) + eventKeyStartIndex;
+            event[eventKey.name] = eventString.slice(eventKeyStartIndex, eventKeyEndIndex);
+
+        } else if (eventKey.valueType === "string"){
+            event[eventKey.name] = getKeyValueForString(eventString, eventKey.startKey, eventKey.endValue);
         }
         
     });
+
+    return JSON.stringify(event);
      
 }
 

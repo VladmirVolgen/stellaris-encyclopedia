@@ -1,5 +1,5 @@
 const { determineEventStartCharLocation, determineEventEndingCharLocation } = require('../utilities/string_value_finder');
-const {Event} = require('../models/event');
+const {Event, createJSONEvent} = require('../models/event');
 const fs = require('fs');
 const readAppConfiguration = require('../configuration/read_configuration')
 
@@ -49,22 +49,23 @@ const processEventFile = function(eventFileContents, fileIndex) {
  * @param eventsInFileCount a counter for the number of events processed int the file.
  * It is used to determine if the json object will need a ',' before.
  */
-const processEvent = function(eventString, fileIndex, eventsInFileCount, config) {
+const processEvent = function(eventString, fileIndex, eventsInFileCount) {
 
     // Read configuration
     const config = readAppConfiguration();
     const pathToJsonOutput = config.processedJsonFolder;
 
-    const event = new Event(eventString, config);
+    //const event = new Event(eventString, config);
+    const event = createJSONEvent(eventString, config);
 
     // Writes an event into a json file
 
     if (fileIndex === 0 && eventsInFileCount === 0) {
-        fs.appendFileSync(pathToJsonOutput, `${JSON.stringify(event)}`, (err) => {
+        fs.appendFileSync(pathToJsonOutput, event, (err) => {
             if (err) throw err
         })
     } else {
-        fs.appendFileSync(pathToJsonOutput, `,${JSON.stringify(event)}`, (err) => {
+        fs.appendFileSync(pathToJsonOutput, `,${event}`, (err) => {
             if (err) throw err
         })
     }

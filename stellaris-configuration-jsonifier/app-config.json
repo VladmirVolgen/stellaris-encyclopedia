@@ -7,7 +7,7 @@
     {
       "name": "id",
       "startKey": "id =",
-      "endValue": "\\n",
+      "endValue": "\n",
       "valueType": "string"
     }
   ]
