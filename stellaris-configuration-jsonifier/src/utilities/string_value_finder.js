@@ -48,7 +48,8 @@ const determineEventStartCharLocation = (eventRemainingString) => {
  * This method gets the value if it is separated by a new line.
  * @param {String} text The text that is going to be searched.
  * @param {String} keyString  The key that needs to be found in the text.
- * TODO: Add endString parameter. Where the key-value pair ends
+ * @param {String} endString The character that points the end of the key-value pair
+ *
  */
 
 const getKeyValueForString = function(text, keyString, endString) {

@@ -49,13 +49,13 @@ const processEventFile = function(eventFileContents, fileIndex) {
  * @param eventsInFileCount a counter for the number of events processed int the file.
  * It is used to determine if the json object will need a ',' before.
  */
-const processEvent = function(eventString, fileIndex, eventsInFileCount) {
+const processEvent = function(eventString, fileIndex, eventsInFileCount, config) {
 
     // Read configuration
     const config = readAppConfiguration();
     const pathToJsonOutput = config.processedJsonFolder;
 
-    const event = new Event(eventString);
+    const event = new Event(eventString, config);
 
     // Writes an event into a json file
 

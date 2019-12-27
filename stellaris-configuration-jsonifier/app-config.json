@@ -5,6 +5,7 @@
     , "pop_faction_event", "pop_event"],
   "eventKeys": [
     {
+      "name": "id",
       "startKey": "id =",
       "endValue": "\\n",
       "valueType": "string"

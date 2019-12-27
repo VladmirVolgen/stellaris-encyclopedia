@@ -95,5 +95,21 @@ Event.prototype.getOptions = function (eventString) {
 
 };
 
+const createJSONEvent = function (eventString, configuration) {
+    const eventKeys = configuration.eventKeys
+    let event = {}
 
-module.exports = { Event };
+    array.forEach(eventKey => {
+
+        if (eventKey.valueType === "object") {
+
+        } else if (eventKey === "string"){
+            event[eventKey.name] = getKeyValueForString(eventString, eventKey.startKey, eventKey.endKey);
+        }
+        
+    });
+     
+}
+
+
+module.exports = { Event, createJSONEvent };
