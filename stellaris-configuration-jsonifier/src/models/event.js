@@ -1,113 +1,24 @@
 const {findLocalisationEntry} = require("../utilities/localisation_entry_finder");
 const {determineEventEndingCharLocation, getKeyValueForString} = require('../utilities/string_value_finder');
-
 /**
- * Event constructor. Gets all the properties from an event.
- * @param eventString
- * @constructor
- * // TODO: change the keys for an array of value pairs so number of keys can be handled from the config
- * // for object types that would mean would do the same logic performed in description.
+ * This method generates a Stellaris event in json format, transforming the peculiar
+ * txt event files from the game. They keys to be parsed are defined in the app-config.json
+ * @param {String} eventString The event string with the txt format
+ * @param {Object} configuration app-config.json with the event keys to be extracted.
  */
-const Event = function (eventString, configuration) {
-    // TODO refactor constructor to instanciate configuration object
-    // and event string that returns an object (will call a method that
-    // will process all keys)
-    this.id = this.getId(eventString);
-    this.title = this.getTitle(eventString);
-    this.description = this.getDescription(eventString);
-    this.picture = this.getPicture(eventString);
-    this.options = this.getOptions(eventString);
-
-
-};
-
-
-Event.prototype.getId = function (eventString) {
-    const idKey = 'id =';
-    return getKeyValueForString(eventString, idKey);
-
-};
-
-
-Event.prototype.getTitle = function (eventString) {
-
-    const titleKey = 'title =';
-    const rawValue = getKeyValueForString(eventString, titleKey);
-    const localisationValue = findLocalisationEntry(rawValue);
-    if (localisationValue !== null) return localisationValue;
-    return rawValue;
-
-};
-
-
-Event.prototype.getDescription = function (eventString) {
-
-    const descObjectKey = 'desc = {';
-    const descStringKey = 'desc =';
-
-    let desc = null;
-
-    if (eventString.indexOf(descObjectKey) !== -1) {
-
-        const descStartIndex = eventString.indexOf(descObjectKey) + descObjectKey.length;
-        const descEndIndex = determineEventEndingCharLocation(eventString.slice(descStartIndex)) + descStartIndex;
-        desc = eventString.slice(descStartIndex, descEndIndex);
-
-    } else {
-
-        desc = getKeyValueForString(eventString, descStringKey);
-
-    }
-
-    return desc;
-
-};
-
-
-Event.prototype.getPicture = function (eventString) {
-
-    const pictureKey = 'picture =';
-
-    return getKeyValueForString(eventString, pictureKey);
-
-};
-
-
-Event.prototype.getOptions = function (eventString) {
-
-    const optionKey = 'option = {';
-    const optionsInEvent = eventString.split(optionKey).length - 1;
-
-    let options = [];
-
-    for (let i = 0; i < optionsInEvent; i++) {
-
-        const optionStartIndex = eventString.indexOf(optionKey) + optionKey.length;
-        const optionEndIndex = determineEventEndingCharLocation(eventString.slice(optionStartIndex)) + optionStartIndex;
-
-        options.push(eventString.slice(optionStartIndex, optionEndIndex));
-
-        eventString = eventString.slice(optionEndIndex);
-
-    }
-
-    return options;
-
-};
-
 const createJSONEvent = function (eventString, configuration) {
     const eventKeys = configuration.eventKeys
     let event = {}
 
     eventKeys.forEach(eventKey => {
-
+        // When the eventKey is an object determine ending bracket and slice 
         if (eventKey.valueType === "object") {
 
             const eventKeyStartIndex = eventString.indexOf(eventKey.startKey) 
                 + eventKey.startKey.length
             const eventKeyEndIndex = determineEventEndingCharLocation(eventString.slice(), eventKeyStartIndex) + eventKeyStartIndex;
             event[eventKey.name] = eventString.slice(eventKeyStartIndex, eventKeyEndIndex);
-
+            
         } else if (eventKey.valueType === "string"){
             event[eventKey.name] = getKeyValueForString(eventString, eventKey.startKey, eventKey.endValue);
         }
@@ -119,4 +30,4 @@ const createJSONEvent = function (eventString, configuration) {
 }
 
 
-module.exports = { Event, createJSONEvent };
+module.exports = { createJSONEvent };

@@ -1,5 +1,5 @@
 const { determineEventStartCharLocation, determineEventEndingCharLocation } = require('../utilities/string_value_finder');
-const {Event, createJSONEvent} = require('../models/event');
+const {createJSONEvent} = require('../models/event');
 const fs = require('fs');
 const readAppConfiguration = require('../configuration/read_configuration')
 
