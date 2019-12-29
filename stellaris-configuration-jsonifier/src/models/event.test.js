@@ -3,7 +3,7 @@ const {createJSONEvent} = require('./event');
 let eventString;
 let configuration;
 
-test ('A Stellaris event key (id) is parsed successfully to JSON format', () => {
+beforeEach(() => {
     eventString = `{
         id = leviathans.9
         hide_window = yes
@@ -38,7 +38,15 @@ test ('A Stellaris event key (id) is parsed successfully to JSON format', () => 
             }
         ]
     }
+})
 
+test ('A Stellaris event key (id) is parsed successfully to JSON format', () => {
     const eventObject = JSON.parse(createJSONEvent(eventString, configuration));
     expect(eventObject.id).toBe('leviathans.9');
+
+})
+
+test ('A Stellaris event key (notPresent) is not present and not parsed to JSON format', () => {
+    const eventObject = JSON.parse(createJSONEvent(eventString, configuration));
+    expect(eventObject.notPresent).toBe(undefined);
 })
