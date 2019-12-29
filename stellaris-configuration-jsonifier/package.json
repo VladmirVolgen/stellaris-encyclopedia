@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/VladmirVolgen/stellaris-encyclopedia/issues"
   },
-  "homepage": "https://github.com/VladmirVolgen/stellaris-encyclopedia#readme"
+  "homepage": "https://github.com/VladmirVolgen/stellaris-encyclopedia#readme",
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
 }
