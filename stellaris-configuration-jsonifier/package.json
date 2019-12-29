@@ -1,0 +1,25 @@
+{
+  "name": "stellaris-configuration-jsonifier",
+  "version": "0.0.1",
+  "description": "Stellaris configurations files parser to a json standard format.",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VladmirVolgen/stellaris-encyclopedia.git"
+  },
+  "keywords": [
+    "stellaris",
+    "json",
+    "configuration",
+    "parser"
+  ],
+  "author": "Alvaro Alonso (VladmirVolgen)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VladmirVolgen/stellaris-encyclopedia/issues"
+  },
+  "homepage": "https://github.com/VladmirVolgen/stellaris-encyclopedia#readme"
+}
