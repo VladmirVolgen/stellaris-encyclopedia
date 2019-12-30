@@ -3,8 +3,9 @@ const {determineEventEndingCharLocation, getKeyValueForString} = require('../uti
 /**
  * This method generates a Stellaris event in json format, transforming the peculiar
  * txt event files from the game. They keys to be parsed are defined in the app-config.json
- * @param {String} eventString The event string with the txt format
+ * @param {String} eventString The event string with the txt format.
  * @param {Object} configuration app-config.json with the event keys to be extracted.
+ * @returns {String} event in a string format.
  */
 const createJSONEvent = function (eventString, configuration) {
     const eventKeys = configuration.eventKeys
@@ -16,7 +17,7 @@ const createJSONEvent = function (eventString, configuration) {
 
             const eventKeyStartIndex = eventString.indexOf(eventKey.startKey) 
                 + eventKey.startKey.length
-            const eventKeyEndIndex = determineEventEndingCharLocation(eventString.slice(), eventKeyStartIndex) + eventKeyStartIndex;
+            const eventKeyEndIndex = determineEventEndingCharLocation(eventString.slice(eventKeyStartIndex)) + eventKeyStartIndex;
             event[eventKey.name] = eventString.slice(eventKeyStartIndex, eventKeyEndIndex);
             
         } else if (eventKey.valueType === "string"){
