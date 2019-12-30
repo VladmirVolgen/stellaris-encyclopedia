@@ -53,10 +53,17 @@ const determineEventStartCharLocation = (eventRemainingString) => {
 
 const getKeyValueForString = function(text, keyString, endString) {
 
-    const startIndex = text.indexOf(keyString) + keyString.length;
-    const endIndex = text.indexOf(endString, startIndex);
-    const value = text.slice(startIndex, endIndex).trim();
+    let value = null;
 
+    const indexOfKeyString = text.indexOf(keyString);
+
+    const startIndex = indexOfKeyString + keyString.length;
+    const endIndex = text.indexOf(endString, startIndex);
+
+    if (indexOfKeyString !== -1 && endIndex !== -1) {
+        value = text.slice(startIndex, endIndex).trim();
+    }
+    
     return value;
 
 };

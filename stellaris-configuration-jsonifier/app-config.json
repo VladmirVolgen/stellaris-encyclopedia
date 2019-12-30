@@ -9,6 +9,16 @@
       "startKey": "id =",
       "endValue": "\n",
       "valueType": "string"
+    },
+    {
+      "name": "trigger",
+      "startKey": "trigger = {",
+      "valueType": "object"
+    },
+    {
+      "name": "immediateEffect",
+      "startKey": "immediate = {",
+      "valueType": "object"
     }
   ]
 }
