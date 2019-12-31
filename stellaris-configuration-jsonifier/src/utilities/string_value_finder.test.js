@@ -1,4 +1,4 @@
-const {getKeyValueForString} = require('./string_value_finder');
+const { getKeyValueForString, determineEventStartCharLocation } = require('./string_value_finder');
 
 describe('getKeyValueForString test', () => {
 
@@ -26,3 +26,22 @@ describe('getKeyValueForString test', () => {
         expect(getKeyValueForString(text, keyString, endString)).toBe(null);
     });
 });
+
+describe('determineEventStartCharLocation tests', () => {
+
+    let eventFileString;
+
+    beforeEach(() => {
+        eventFileString = '{ key = this is a mock stellaris event }';
+    });
+
+    test('Should return the position of { in the given string', () => {
+        expect(determineEventStartCharLocation(eventFileString)).toBe(0);
+    });
+
+    test('Should return -1 if it does not find a } character', () => {
+        eventFileString = 'This is a failing test';
+
+        expect(determineEventStartCharLocation(eventFileString)).toBe(-1);
+    });
+})
