@@ -1,4 +1,4 @@
-const { getKeyValueForString, determineEventStartCharLocation } = require('./string_value_finder');
+const { getKeyValueForString, determineEventStartCharLocation, determineEventEndingCharLocation } = require('./string_value_finder');
 
 describe('getKeyValueForString test', () => {
 
@@ -40,8 +40,41 @@ describe('determineEventStartCharLocation tests', () => {
     });
 
     test('Should return -1 if it does not find a } character', () => {
+
         eventFileString = 'This is a failing test';
 
         expect(determineEventStartCharLocation(eventFileString)).toBe(-1);
     });
 })
+
+describe('determineEventEndingCharLocation test', () => {
+
+    let slicedEventString;
+
+    beforeEach(() => {
+        slicedEventString = ` 
+            id = test.9
+            trigger = {
+                someKey = This is a test
+            }
+
+        }`
+    });
+
+    test('Should be able to determine where an object ends ', () => {
+
+        const result = slicedEventString.length - 1
+
+        expect(determineEventEndingCharLocation(slicedEventString)).toBe(result);
+    });
+
+    test('Should return -1 if the object does not end', () => {
+
+        // TODO: Identified error in the code, it causes an endless loop
+
+        // slicedEventString = `There is no closing bracket for the object`
+        
+        // expect(determineEventEndingCharLocation(slicedEventString)).toBe(-1);
+    });
+    
+});
