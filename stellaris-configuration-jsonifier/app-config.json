@@ -1,6 +1,7 @@
 {
   "pathToLocalisation": "../test-data-sets/localisation/",
   "processedJsonFolder": "../test-data-sets/json-output/events-output.json",
+  "pathToStellarisEventFiles": "../test-data-sets/events/",
   "eventTypes": ["country_event", "ship_event", "fleet_event", "planet_event"
     , "pop_faction_event", "pop_event"],
   "eventKeys": [
