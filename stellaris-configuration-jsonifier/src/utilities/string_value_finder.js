@@ -7,14 +7,18 @@
 const determineEventEndingCharLocation = function (slicedEventString) {
 
 
-    let bracketsCounter = 1;
+    let bracketsCounter = 0;
     let endingChar = -1;
-    let index = 1;
 
-    while (bracketsCounter !== 0) {
+    // In case we have space in the slicedEventString 
+    // we ensure we start from the begining of the object
+    const startObject = slicedEventString.search('{');
+    
+    const slicedEventCharArray = slicedEventString.split('');
+    
 
-        let slicedEventArray = slicedEventString.split('');
-        let character = slicedEventArray[index];
+    for (let index = startObject; index < slicedEventCharArray.length; index++) {
+        let character = slicedEventCharArray[index];
 
         if (character === "{") {
             bracketsCounter++;
@@ -22,16 +26,13 @@ const determineEventEndingCharLocation = function (slicedEventString) {
             bracketsCounter--;
         }
 
-
         if (bracketsCounter === 0) {
 
             // returns ending char
             endingChar = index;
             break;
         }
-
-        index++;
-
+        
     }
 
     return endingChar;

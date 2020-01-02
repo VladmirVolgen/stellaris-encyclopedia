@@ -56,7 +56,7 @@ test ('A Stellaris event key (trigger) with type object is parsed successfully t
         eventKeys: [
             {
                 name: "trigger",
-                startKey: "trigger = {",
+                startKey: "trigger =",
                 valueType: "object"
             }
         ]

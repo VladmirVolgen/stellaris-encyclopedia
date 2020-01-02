@@ -52,7 +52,7 @@ describe('determineEventEndingCharLocation test', () => {
     let slicedEventString;
 
     beforeEach(() => {
-        slicedEventString = ` 
+        slicedEventString = `{ 
             id = test.9
             trigger = {
                 someKey = This is a test

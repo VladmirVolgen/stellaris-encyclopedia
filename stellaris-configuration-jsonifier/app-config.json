@@ -12,12 +12,12 @@
     },
     {
       "name": "trigger",
-      "startKey": "trigger = {",
+      "startKey": "trigger =",
       "valueType": "object"
     },
     {
       "name": "immediateEffect",
-      "startKey": "immediate = {",
+      "startKey": "immediate =",
       "valueType": "object"
     }
   ]
