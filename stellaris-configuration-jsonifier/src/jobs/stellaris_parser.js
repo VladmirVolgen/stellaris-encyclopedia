@@ -1,11 +1,10 @@
-const {processFiles} = require('../utilities/file_reader');
+const { processFiles } = require('../utilities/file_reader');
 const { processEventFile } = require('../processors/event_parser');
 const fs = require('fs');
 const readAppConfiguration = require('../configuration/read_configuration');
 
-const stellarisParser = function() {  
-    //Read config
-    const config = readAppConfiguration();
+const stellarisParser = function(config) {  
+    
     const pathToJsonOutput = config.processedJsonFolder;
     const eventsPath = config.pathToStellarisEventFiles;
     
@@ -22,7 +21,7 @@ const stellarisParser = function() {
     }
 
     // TODO: Step2, add localisation to jsons 
-    // (2 options, either insert into database or create new json for each language)
+    // (2 options, either insert into non-relational database or create new json for each language)
     
     // Writes end array to file
     fs.appendFileSync(pathToJsonOutput, `]`, (err) => {
