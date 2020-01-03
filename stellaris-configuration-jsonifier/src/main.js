@@ -1,10 +1,10 @@
-const stellarisParser = require('./jobs/stellaris_parser');
+const stellarisParserJob = require('./jobs/stellaris_parser_job');
 
 // Read config
 const config = readAppConfiguration();
 
 // Calls the jobs
-stellarisParser(config);
+stellarisParserJob(config);
 
 
 
