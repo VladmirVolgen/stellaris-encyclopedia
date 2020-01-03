@@ -22,3 +22,5 @@ const readNamespaces = function (files) {
 
 
 }
+
+module.exports = readNamespaces;

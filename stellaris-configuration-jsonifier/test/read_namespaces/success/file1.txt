@@ -1,0 +1,5 @@
+namespace = test1
+
+country_event = {
+    let's put some extra info
+}

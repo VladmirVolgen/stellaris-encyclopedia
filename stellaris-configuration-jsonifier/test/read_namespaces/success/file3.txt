@@ -1,0 +1,5 @@
+namespace = test2
+
+country_event = {
+    file3 has a different namespace
+}

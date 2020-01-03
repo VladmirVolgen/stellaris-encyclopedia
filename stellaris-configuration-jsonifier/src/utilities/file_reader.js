@@ -30,8 +30,8 @@ const readFile = function(filePath) {
  * @param {String} dir 
  * @returns {Array} A list of files (String)
  */
-const getFileList = function(dir) {
-    return fs.readdirSync(dir);
+const getFileList = function(dir) {  
+    return fs.readdirSync(dir).map((file) => `${dir}/${file}`);
 }
 
-module.exports = {processFiles, readFile};
+module.exports = {processFiles, readFile, getFileList};
