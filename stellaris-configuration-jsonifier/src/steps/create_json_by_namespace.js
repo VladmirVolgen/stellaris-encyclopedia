@@ -2,13 +2,7 @@ const { processFiles } = require('../utilities/file_reader');
 const { processEventFile } = require('../processors/event_parser');
 const fs = require('fs');
 
-const stellarisParserJob = function(config) {  
-    
-    const pathToJsonOutput = config.processedJsonFolder;
-    const eventsPath = config.pathToStellarisEventFiles;
-    
-    const eventFiles = processFiles(eventsPath);
-
+const createJSONByNamespace = function() {
     // TODO: read all namespaces and return a object with 
     // namespaces and files assigned
     /** 
@@ -38,9 +32,8 @@ const stellarisParserJob = function(config) {
 
     // end of step1
 
-    // TODO: Step2, add localisation to jsons 
-    // (2 options, either insert into non-relational database or create new json for each language)
-    
 }
 
-module.exports = stellarisParserJob;
+
+
+module.exports = createJSONByNamespace;
