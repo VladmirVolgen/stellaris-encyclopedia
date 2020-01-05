@@ -18,3 +18,14 @@ test('Should return a list of namespaces with files assigned', () => {
 
     
 });
+
+test('Should return no namespaces', () => {
+    const dir = './test/read_namespaces/fail';
+
+    const files = getFileList(dir);
+
+    const expectedResult = {};
+
+    expect(readNamespaces(files)).toEqual(expectedResult);
+
+})
