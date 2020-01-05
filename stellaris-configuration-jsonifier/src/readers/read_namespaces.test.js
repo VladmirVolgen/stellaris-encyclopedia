@@ -14,10 +14,6 @@ test('Should return a list of namespaces with files assigned', () => {
         test2: [`${dir}/file3.txt`] 
     }
 
-    const testingThings = readNamespaces(files);
-
-    console.log('meh')
-
     expect(readNamespaces(files)).toEqual(expectedResult);
 
     
