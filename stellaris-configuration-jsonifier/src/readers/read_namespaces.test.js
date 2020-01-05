@@ -28,4 +28,4 @@ test('Should return no namespaces', () => {
 
     expect(readNamespaces(files)).toEqual(expectedResult);
 
-})
+});
