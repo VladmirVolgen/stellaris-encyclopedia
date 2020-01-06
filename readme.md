@@ -2,7 +2,7 @@
 
 ## Build Status
 
-https://travis-ci.org/VladmirVolgen/stellaris-encyclopedia.svg?branch=master
+![stellaris encyclopedia build status](https://travis-ci.org/VladmirVolgen/stellaris-encyclopedia.svg?branch=master)
 
 ## Project structure
 
