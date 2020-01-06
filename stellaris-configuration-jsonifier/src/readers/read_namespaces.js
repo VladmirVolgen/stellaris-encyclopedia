@@ -15,7 +15,10 @@ const readNamespaces = function (files) {
    
     files.forEach(file => {
         let fileString = readFile(file);
-        let namespace = getKeyValueForString(fileString, 'namespace =', '\n').trim();
+        let namespace = getKeyValueForString(fileString, 'namespace =', '\n');
+        if (namespace === null) return;
+
+        namespace = namespace.trim();
 
         // if namespace[namespace] exists
         if (namespaces[namespace]) {
