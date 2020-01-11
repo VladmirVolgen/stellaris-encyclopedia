@@ -1,17 +1,15 @@
 const { processFiles } = require('../utilities/file_reader');
 const { processEventFile } = require('../processors/event_parser');
 const fs = require('fs');
+const readNamespaces = require('../readers/read_namespaces');
 
-const createJSONByNamespace = function() {
-    // TODO: read all namespaces and return a object with 
-    // namespaces and files assigned
-    /** 
-    {
-        namespaceName: [file1, file2]
-    }
-    */
+const createJSONByNamespace = function(files) {
+    
+    // read phase
+   const namespacesAndAssignedFiles = readNamespaces(files);
+   
 
-     // TODO: Step1, create and write all jsons   
+    // TODO: Step1, create and write all jsons   
     
     // Writes start array to file
     // TODO: instead of pathToJsonOutput the filename will be 
