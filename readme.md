@@ -7,7 +7,7 @@ It is meant to be a useful guide for players, letting the users navigate through
 
 ## Build Status
 
-![stellaris encyclopedia build status](https://travis-ci.org/VladmirVolgen/stellaris-encyclopedia.svg?branch=master)
+[![Stellaris Encyclopedia Build Status](https://travis-ci.org/VladmirVolgen/stellaris-encyclopedia.svg?branch=master)](https://travis-ci.org/VladmirVolgen/stellaris-encyclopedia)
 
 ## Project structure
 
