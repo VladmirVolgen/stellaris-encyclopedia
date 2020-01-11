@@ -9,8 +9,11 @@ const createJSONByNamespace = function(files) {
    const namespacesAndAssignedFiles = readNamespaces(files);
    
 
-    // TODO: Step1, create and write all jsons   
+    // TODO: Step1, create and write all jsons
+    //writeStellarisEvents(namespacesAndAssignedFiles, dir)
+    //dir = directory to write (from the config)   
     
+    // (
     // Writes start array to file
     // TODO: instead of pathToJsonOutput the filename will be 
     // determined by namespace
@@ -28,6 +31,7 @@ const createJSONByNamespace = function(files) {
         if (err) throw err
     });
 
+    // ) to be removed once writeStellarisEvents is ready
     // end of step1
 
 }
