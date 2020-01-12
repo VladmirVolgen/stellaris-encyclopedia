@@ -1,13 +1,12 @@
 const { processFiles } = require('../utilities/file_reader');
-const { processEventFile } = require('../processors/event_parser');
+const { processEventFile } = require('../writers/event_writer');
 const fs = require('fs');
 const readNamespaces = require('../readers/read_namespaces');
 
 const createJSONByNamespace = function(files) {
     
     // read phase
-   const namespacesAndAssignedFiles = readNamespaces(files);
-   
+   const namespacesAndAssignedFiles = readNamespaces(files);   
 
     // TODO: Step1, create and write all jsons
     //writeStellarisEvents(namespacesAndAssignedFiles, dir)
