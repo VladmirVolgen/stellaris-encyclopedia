@@ -1,4 +1,4 @@
-const {createJSONEvent} = require('./event');
+const processStellarisEvent = require('./stellaris_event_processor');
 
 let eventString;
 let configuration;
@@ -41,13 +41,13 @@ beforeEach(() => {
 })
 
 test ('A Stellaris event key (id) with type string is parsed successfully to JSON format', () => {
-    const eventObject = JSON.parse(createJSONEvent(eventString, configuration));
+    const eventObject = JSON.parse(processStellarisEvent(eventString, configuration));
     expect(eventObject.id).toBe('leviathans.9');
 
 })
 
 test ('A Stellaris event key (notPresent) is not present and not parsed to JSON format', () => {
-    const eventObject = JSON.parse(createJSONEvent(eventString, configuration));
+    const eventObject = JSON.parse(processStellarisEvent(eventString, configuration));
     expect(eventObject.notPresent).toBe(undefined);
 })
 
@@ -61,7 +61,7 @@ test ('A Stellaris event key (trigger) with type object is parsed successfully t
             }
         ]
     }
-    const eventObject = JSON.parse(createJSONEvent(eventString, configuration));
+    const eventObject = JSON.parse(processStellarisEvent(eventString, configuration));
 
     expect(eventObject.trigger).toMatch(/is_guardian_country = yes/);
     expect(eventObject.trigger).toMatch(/OR = {/);
