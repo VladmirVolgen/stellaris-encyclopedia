@@ -1,5 +1,5 @@
 const { determineEventStartCharLocation, determineEventEndingCharLocation } = require('../utilities/string_value_finder');
-const {createJSONEvent} = require('../processors/stellaris_event_processor');
+const processStellarisEvent = require('../processors/stellaris_event_processor');
 const fs = require('fs');
 const readAppConfiguration = require('../configuration/read_configuration')
 
@@ -12,7 +12,7 @@ const readAppConfiguration = require('../configuration/read_configuration')
  * @param eventFileContents String
  * @param fileIndex int Passed down to processEvent.
  */
-const processEventFile = function(eventFileContents, fileIndex) {
+const writeEventFile = function(eventFileContents, fileIndex) {
 
     let startIndex = 0;
 
@@ -32,7 +32,7 @@ const processEventFile = function(eventFileContents, fileIndex) {
         const eventContents = eventFileContents.slice(0, endingChar);
 
         // call processor and write into output json
-        processEvent(eventContents, fileIndex, eventsInFileCount);
+        writeEvent(eventContents, fileIndex, eventsInFileCount);
         eventsInFileCount++;
 
         console.log(`Events processed in the file: ${eventsInFileCount}`);
@@ -46,8 +46,6 @@ const processEventFile = function(eventFileContents, fileIndex) {
 
 };
 
-// TODO: processEvent needs to be renamed to writeEvent
-
 /**
  * This method process an event and writes it into a file
  * @param eventString
@@ -55,18 +53,13 @@ const processEventFile = function(eventFileContents, fileIndex) {
  * @param eventsInFileCount a counter for the number of events processed int the file.
  * It is used to determine if the json object will need a ',' before.
  */
-const processEvent = function(eventString, fileIndex, eventsInFileCount) {
+const writeEvent = function(eventString, fileIndex, eventsInFileCount, pathToJsonOutput) {
 
-    // Read configuration
-    const config = readAppConfiguration();
-    const pathToJsonOutput = config.processedJsonFolder;
-
-    //const event = new Event(eventString, config);
-    const event = createJSONEvent(eventString, config);
+    const event = processStellarisEvent(eventString, readAppConfiguration());
 
     // Writes an event into a json file
 
-    if (fileIndex === 0 && eventsInFileCount === 0) {
+    if (fileIndex === 0 && (eventsInFileCount === 0 || eventsInFileCount === 1)) {
         fs.appendFileSync(pathToJsonOutput, event, (err) => {
             if (err) throw err
         })
@@ -79,5 +72,5 @@ const processEvent = function(eventString, fileIndex, eventsInFileCount) {
 
 };
 
-module.exports = { processEventFile, processEvent };
+module.exports = {writeEventFile, writeEvent};
 

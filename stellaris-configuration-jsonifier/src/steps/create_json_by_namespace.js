@@ -1,5 +1,3 @@
-const { processFiles } = require('../utilities/file_reader');
-const { processEventFile } = require('../writers/event_writer');
 const fs = require('fs');
 const readNamespaces = require('../readers/read_namespaces');
 
