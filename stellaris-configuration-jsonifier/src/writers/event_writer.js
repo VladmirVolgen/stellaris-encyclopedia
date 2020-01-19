@@ -52,6 +52,7 @@ const writeEventFile = function(eventFileContents, fileIndex) {
  * @param fileIndex it is used to see if it is the first file being processed.
  * @param eventsInFileCount a counter for the number of events processed int the file.
  * It is used to determine if the json object will need a ',' before.
+ * @param pathToJsonOutput the path to the file that is going to be written
  */
 const writeEvent = function(eventString, fileIndex, eventsInFileCount, pathToJsonOutput) {
 

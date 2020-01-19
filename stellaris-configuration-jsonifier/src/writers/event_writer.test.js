@@ -31,4 +31,11 @@ describe('writeEvent tests', () => {
             if (err) throw err;
           });
     })
+
+    test('Should fail to write an event into a file', () => {
+        expect(() => {
+            writeEvent(eventString, 0, 1, '/^ malformed dir')
+        }).toThrow();
+        
+    }) 
 });
