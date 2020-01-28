@@ -6,7 +6,7 @@ const createJSONByNamespace = function(files) {
     // read phase
    const namespacesAndAssignedFiles = readNamespaces(files);   
 
-    // TODO: Step1, create and write all jsons
+    // TODO: create and write all jsons
     //writeStellarisEvents(namespacesAndAssignedFiles, dir)
     //dir = directory to write (from the config)   
     

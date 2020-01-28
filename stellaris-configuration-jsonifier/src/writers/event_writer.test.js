@@ -39,3 +39,28 @@ describe('writeEvent tests', () => {
         
     }) 
 });
+
+describe('writeEventFile', () => {
+
+    let pathToStorySample;
+
+    beforeEach(() => {
+        pathToStorySample = './test/event_writer/story_sample/story_sample_events.txt'
+    });
+
+    test('Should write an event folder given a text file', () => {
+        
+        const eventFileString = fs.readFileSync(pathToStorySample).toString();
+
+        writeEventFile(eventFileString, 0, './test-output.json');
+
+        const jsonOutput = fs.readFileSync('./test-output.json').toString();
+        expect(jsonOutput.includes('},{')).toBeTruthy();
+        expect(jsonOutput.includes('"id":"story.1"')).toBeTruthy();
+        expect(jsonOutput.includes('"id":"story.2"')).toBeTruthy();
+
+        fs.unlinkSync('./test-output.json');
+
+    });
+
+});
